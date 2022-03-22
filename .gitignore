@@ -1,2 +1,4 @@
 /__pycache__
 /payroll.db
+config.json
+.env

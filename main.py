@@ -1,45 +1,39 @@
-import PySimpleGUI as sg
-import sqlite3
 from database import *
+from ui import *
+import os
+import json
+global DB_PATH
+
+def config_check():
+    if os.path.exists('config.json'):
+        with open("config.json", "r") as config:
+            path = json.load(config)
+            return path["db_path"]
+    else:
+        with open("config.json", "w") as config:
+            path = database_select()
+            data_path = {"db_path":path}
+            config.write(json.dumps(data_path))
+            return path
+        
+
+        
+
+    
+    
 
 
-def new_entry():
-    con = sqlite3.connect("payroll.db")
-    layout = [[sg.Text("Social Security")], [sg.In(size=(25, 1), enable_events=True, key="ssnum")],
-              [sg.Text("First Name")], [sg.In(size=(25, 1), enable_events=True, key="fname")],
-              [sg.Text("Middle Name")], [sg.In(size=(25, 1), enable_events=True, key="mname")],
-              [sg.Text("Last Name")], [sg.In(size=(25, 1), enable_events=True, key="lname")],
-              [sg.Text("Salary")], [sg.In(size=(25, 1), enable_events=True, key="salary")],
-              [sg.Text("Additions")], [sg.In(size=(25, 1), enable_events=True, key="additions")],
-              [sg.Button('Add',key="add_entry"),sg.Button('Cancel',key="cancel_entry")]]
-    window = sg.Window("Employee Entry", layout, modal=True)
-    choice = None
-    while True:
-        event, values = window.read()
-        
-        if event == "add_entry":
-            cursor = con.cursor()
-            cursor.execute("INSERT INTO employees VALUES ('{}','{}','{}','{}',{},{},1)".format(values["ssnum"],values["fname"],
-                       values["mname"],values["lname"],
-                       values["salary"],values["additions"]))
-            con.commit()
-            break
-        
-        elif event == "cancel_entry" or event == sg.WIN_CLOSED:
-            break
-        
-    window.close()
-def main():
-    layout = [[sg.Button("New Employee", key="new_entry")]]
-    window = sg.Window("Main Window", layout, margins=(100,100))
-    while True:
-        event, values = window.read()
-        if event == "Exit" or event == sg.WIN_CLOSED:
-            break
-        if event == "new_entry":
-            new_entry()
-        
-    window.close()
 if __name__ == "__main__":
-    sql_connection()
+    DB_PATH = config_check()
+    connected = False
+    while connected == False:
+        try:
+            sql_connection(DB_PATH)
+            connected = True
+        except:
+            simple_error("Database not found, select or create database")
+            os.remove("config.json")
+            DB_PATH = config_check()
+            continue
     main()
+        
