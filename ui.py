@@ -55,12 +55,12 @@ def new_entry():
               [sg.Button('Add',key="add_entry"),sg.Button('Cancel',key="cancel_entry")]]
 
     right = [[sg.Text("Salary Per Week")], [sg.In(size=(25, 1), enable_events=True, key="salary")],
-            [sg.Text("Hours Per week")], [sg.In(size=(25, 1), enable_events=True, key="hours_per_week")],
-            [sg.Text("Income Tax")], [sg.In(size=(25, 1), enable_events=True, key="income")],
-            [sg.Text("Social S. Week 2")], [sg.In(size=(25, 1), enable_events=True, key="ss_discount_1")],
-            [sg.Text("Social S. Week 1")], [sg.In(size=(25, 1), enable_events=True, key="ss_discount_2")],
-            [sg.Text("Social S. Emp. Week 1")], [sg.In(size=(25, 1), enable_events=True, key="ss_discount_employer_1")],
-            [sg.Text("Social S. Emp. Week 2")], [sg.In(size=(25, 1), enable_events=True, key="ss_discount_employer_2")]]
+              [sg.Text("Hours Per week")], [sg.In(size=(25, 1), enable_events=True, key="hours_per_week")],
+              [sg.Text("Income Tax")], [sg.In(size=(25, 1), enable_events=True, key="income")],
+              [sg.Text("Social S. Week 2")], [sg.In(size=(25, 1), enable_events=True, key="ss_discount_1")],
+              [sg.Text("Social S. Week 1")], [sg.In(size=(25, 1), enable_events=True, key="ss_discount_2")],
+              [sg.Text("Social S. Emp. Week 1")], [sg.In(size=(25, 1), enable_events=True, key="ss_discount_employer_1")],
+              [sg.Text("Social S. Emp. Week 2")], [sg.In(size=(25, 1), enable_events=True, key="ss_discount_employer_2")]]
 
     layout = [[sg.Column(left, element_justification='l'), sg.Column(right, element_justification='c')]] 
 
